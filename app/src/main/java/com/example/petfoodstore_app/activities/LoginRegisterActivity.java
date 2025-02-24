@@ -39,12 +39,14 @@ public class LoginRegisterActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
+
     public void switchToLogin() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main, new LoginFragment())
                 .addToBackStack(null)
                 .commit();
     }
+
     public void switchToRegister() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main, new RegisterFragment())
