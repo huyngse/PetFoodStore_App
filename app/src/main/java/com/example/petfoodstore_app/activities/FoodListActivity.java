@@ -1,5 +1,6 @@
 package com.example.petfoodstore_app.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.petfoodstore_app.R;
 import com.example.petfoodstore_app.Service.ApiService;
+import com.example.petfoodstore_app.activities.Map.MapActivity;
 import com.example.petfoodstore_app.adapters.FoodAdapter;
 import com.example.petfoodstore_app.models.Food;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +34,43 @@ public class FoodListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_food_list);
 
         listView = findViewById(R.id.foodListView);
-        foodAdapter = new FoodAdapter(this, foodList);  // ✅ Đúng constructor
-        listView.setAdapter(foodAdapter);  // ✅ Không còn lỗi
+        foodAdapter = new FoodAdapter(this, foodList);
+        listView.setAdapter(foodAdapter);
 
         loadFoodList(); // Gọi API để lấy danh sách thức ăn
+
+        // Thiết lập BottomNavigationView
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home); // Mặc định chọn Home
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.nav_home) {
+                // Đã ở FoodListActivity, không cần làm gì
+                return true;
+            } else if (itemId == R.id.nav_cart) {
+                // Chuyển đến CartActivity (chưa có, cần tạo)
+                Intent intent = new Intent(FoodListActivity.this, CartActivity.class);
+                startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_map) {
+                // Chuyển đến MapActivity
+                Intent intent = new Intent(FoodListActivity.this, MapActivity.class);
+                startActivity(intent);
+                return true;
+            } else if (itemId == R.id.nav_logout) {
+                // Xử lý đăng xuất
+                SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear().apply();
+                Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
+                // Chuyển về màn hình đăng nhập (giả sử là LoginActivity)
+                Intent intent = new Intent(FoodListActivity.this, LoginRegisterActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            }
+            return false;
+        });
     }
 
     private void loadFoodList() {
