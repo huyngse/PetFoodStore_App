@@ -1,6 +1,8 @@
 package com.example.petfoodstore_app.fragments.loginRegister;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import com.example.petfoodstore_app.DTO.Login.LoginRequest;
 import com.example.petfoodstore_app.DTO.Login.LoginResponse;
 import com.example.petfoodstore_app.R;
 import com.example.petfoodstore_app.Service.ApiService;
+import com.example.petfoodstore_app.activities.FoodListActivity;
 import com.example.petfoodstore_app.activities.LoginRegisterActivity;
 import com.example.petfoodstore_app.activities.ShoppingActivity;
 
@@ -72,8 +75,14 @@ public class LoginFragment extends Fragment {
                         LoginResponse loginResponse = response.body();
                         Toast.makeText(getContext(), "Đăng nhập thành công! Token: " + loginResponse.getToken(), Toast.LENGTH_LONG).show();
 
+                        // Lưu token vào SharedPreferences
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", loginResponse.getToken()); // Lấy token từ response
+                        editor.apply();
+
                         // Chuyển sang ShoppingActivity
-                        Intent intent = new Intent(getContext(), ShoppingActivity.class);
+                        Intent intent = new Intent(getContext(), FoodListActivity.class);
                         startActivity(intent);
                         getActivity().finish();
                     } else {
