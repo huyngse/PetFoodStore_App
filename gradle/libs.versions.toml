@@ -13,6 +13,8 @@ playServicesLocation = "21.3.0"
 playServicesMaps = "18.2.0"
 json = "20230227"  # Thêm phiên bản cho org.json
 
+glide = "4.16.0"
+
 
 [libraries]
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
@@ -30,6 +32,8 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 json = { group = "org.json", name = "json", version.ref = "json" }  # Thêm định nghĩa cho org.json
 
 
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

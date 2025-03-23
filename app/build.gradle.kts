@@ -49,4 +49,7 @@ dependencies {
     implementation(libs.play.services.location)
     implementation(libs.play.services.maps)
     implementation(libs.json)  // Thêm dòng này để sử dụng org.json
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
+
 }
