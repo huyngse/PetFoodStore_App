@@ -28,7 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <TextView
             android:id="@+id/tvLetsRegister"
             style="@style/h4"
@@ -49,11 +48,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Do you have an account? log in"
+            android:text="Do you have an account? Log in"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@id/tvLetsRegister"
             app:layout_constraintStart_toStartOf="@id/tvLetsRegister"
             app:layout_constraintTop_toBottomOf="@id/tvLetsRegister" />
+
+        <EditText
+            android:id="@+id/etNameRegister"
+            style="@style/editText"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edittextHeight"
+            android:layout_marginTop="10dp"
+            android:hint="Name"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+            app:layout_constraintTop_toBottomOf="@id/tvDoYouHaveAccount" />
 
         <EditText
             android:id="@+id/etEmailRegister"
@@ -65,7 +76,7 @@
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
             app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-            app:layout_constraintTop_toBottomOf="@id/tvDoYouHaveAccount" />
+            app:layout_constraintTop_toBottomOf="@id/etNameRegister" />
 
         <EditText
             android:id="@+id/etPasswordRegister"
