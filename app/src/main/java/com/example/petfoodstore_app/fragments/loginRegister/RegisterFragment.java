@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.petfoodstore_app.DTO.Register.RegisterRequest;
 import com.example.petfoodstore_app.DTO.Register.RegisterResponse;
 import com.example.petfoodstore_app.R;
-import com.example.petfoodstore_app.Service.ApiService;
+import com.example.petfoodstore_app.services.ApiService;
 import com.example.petfoodstore_app.activities.LoginRegisterActivity;
 
 

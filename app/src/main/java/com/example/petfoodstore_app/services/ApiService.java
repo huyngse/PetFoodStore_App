@@ -1,4 +1,4 @@
-package com.example.petfoodstore_app.Service;
+package com.example.petfoodstore_app.services;
 
 import com.example.petfoodstore_app.DTO.Login.LoginRequest;
 import com.example.petfoodstore_app.DTO.Login.LoginResponse;

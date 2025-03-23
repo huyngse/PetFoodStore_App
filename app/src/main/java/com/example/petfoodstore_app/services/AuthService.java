@@ -1,7 +1,9 @@
 package com.example.petfoodstore_app.services;
 
-import com.example.petfoodstore_app.requests.LoginRequest;
-import com.example.petfoodstore_app.responses.LoginResponse;
+
+
+import com.example.petfoodstore_app.DTO.Login.LoginRequest;
+import com.example.petfoodstore_app.DTO.Login.LoginResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
