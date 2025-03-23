@@ -20,8 +20,6 @@ import com.example.petfoodstore_app.R;
 import com.example.petfoodstore_app.Service.ApiService;
 import com.example.petfoodstore_app.activities.FoodListActivity;
 import com.example.petfoodstore_app.activities.LoginRegisterActivity;
-import com.example.petfoodstore_app.activities.ShoppingActivity;
-
 
 import retrofit2.Call;
 import retrofit2.Callback;

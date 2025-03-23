@@ -2,7 +2,6 @@ package com.example.petfoodstore_app.models;
 
 import androidx.annotation.NonNull;
 
-import java.util.Date;
 
 public class Food {
     private int id;
