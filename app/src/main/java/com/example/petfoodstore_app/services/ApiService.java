@@ -5,6 +5,8 @@ import com.example.petfoodstore_app.DTO.Login.LoginResponse;
 import com.example.petfoodstore_app.DTO.Register.RegisterRequest;
 import com.example.petfoodstore_app.DTO.Register.RegisterResponse;
 import com.example.petfoodstore_app.models.Food;
+import com.example.petfoodstore_app.models.Order;
+import com.example.petfoodstore_app.models.UserProfile;
 
 import java.util.List;
 
@@ -32,4 +34,10 @@ public interface ApiService {
 
     @GET("api/food/all")
     Call<List<Food>> getAllFood(@Header("Authorization") String token);
+
+    @GET("api/profile")
+    Call<UserProfile> getUserProfile(@Header("Authorization") String token);
+
+    @GET("orders/my")
+    Call<List<Order>> getMyOrders(@Header("Authorization") String token);
 }

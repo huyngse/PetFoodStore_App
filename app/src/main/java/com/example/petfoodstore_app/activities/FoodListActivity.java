@@ -48,19 +48,20 @@ public class FoodListActivity extends AppCompatActivity {
                 return true;
             } else if (itemId == R.id.nav_cart) {
                 Toast.makeText(this, "Cart clicked (not implemented)", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FoodListActivity.this, CartActivity.class);
+                startActivity(intent);
                 return true;
             } else if (itemId == R.id.nav_map) {
                 Intent intent = new Intent(FoodListActivity.this, MapActivity.class);
                 startActivity(intent);
                 return true;
-            } else if (itemId == R.id.nav_logout) {
-                SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear().apply();
-                Toast.makeText(this, "Đã đăng xuất", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(FoodListActivity.this, LoginRegisterActivity.class);
+            } else if (itemId == R.id.nav_profile) {
+                Intent intent = new Intent(FoodListActivity.this, ProfileActivity.class);
                 startActivity(intent);
-                finish();
+                return true;
+            } else if (itemId == R.id.nav_orders) {
+                Intent intent = new Intent(FoodListActivity.this, OrderActivity.class);
+                startActivity(intent);
                 return true;
             }
             return false;
@@ -73,6 +74,9 @@ public class FoodListActivity extends AppCompatActivity {
 
         if (token.isEmpty()) {
             Toast.makeText(this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(FoodListActivity.this, LoginRegisterActivity.class);
+            startActivity(intent);
+            finish(); // Đóng FoodListActivity để không quay lại
             return;
         }
 

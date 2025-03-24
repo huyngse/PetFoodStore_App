@@ -36,7 +36,7 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Khởi tạo các view
-        etName = view.findViewById(R.id.etNameRegister); // Thêm EditText cho name trong layout nếu chưa có
+        etName = view.findViewById(R.id.etNameRegister);
         etEmail = view.findViewById(R.id.etEmailRegister);
         etPassword = view.findViewById(R.id.etPasswordRegister);
         etConfirmPassword = view.findViewById(R.id.etConfirmPasswordRegister);

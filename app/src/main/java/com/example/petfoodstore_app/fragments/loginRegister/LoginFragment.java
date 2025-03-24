@@ -73,13 +73,11 @@ public class LoginFragment extends Fragment {
                         LoginResponse loginResponse = response.body();
                         Toast.makeText(getContext(), "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
 
-                        // Lưu token vào SharedPreferences
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", loginResponse.getToken()); // Lấy token từ response
                         editor.apply();
 
-                        // Chuyển sang ShoppingActivity
                         Intent intent = new Intent(getContext(), FoodListActivity.class);
                         startActivity(intent);
                         getActivity().finish();

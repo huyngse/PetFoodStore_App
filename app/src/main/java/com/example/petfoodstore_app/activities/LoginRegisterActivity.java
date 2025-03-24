@@ -1,5 +1,7 @@
 package com.example.petfoodstore_app.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -21,11 +23,28 @@ public class LoginRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login_register);
+
+        // Kiểm tra token trong SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+
+        // Nếu token tồn tại, chuyển thẳng đến FoodListActivity
+        if (!token.isEmpty()) {
+            Intent intent = new Intent(LoginRegisterActivity.this, FoodListActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Xóa stack để không quay lại
+            startActivity(intent);
+            finish(); // Đóng LoginRegisterActivity
+            return;
+        }
+
+        // Xử lý padding cho thanh hệ thống (system bars)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Hiển thị IntroductionFragment nếu không có trạng thái lưu
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main, new IntroductionFragment())
