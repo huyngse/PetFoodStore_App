@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -60,11 +61,13 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/edittextHeight"
             android:layout_marginTop="50dp"
+            android:autofillHints="emailAddress"
             android:hint="Email"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/tvDontHaveAnAccount" />
+            app:layout_constraintTop_toBottomOf="@id/tvDontHaveAnAccount"
+            tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/etPasswordLogin"
@@ -72,11 +75,13 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/edittextHeight"
             android:layout_marginTop="15dp"
+            android:autofillHints="password"
             android:hint="Password"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/etEmailLogin" />
+            app:layout_constraintTop_toBottomOf="@id/etEmailLogin"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tvForgotPasswordLogin"
@@ -90,7 +95,8 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/etPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@id/etPasswordLogin"
+            tools:ignore="HardcodedText" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLoginLogin"
@@ -101,7 +107,8 @@
             android:text="Login"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
-            app:layout_constraintTop_toBottomOf="@id/tvForgotPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@id/tvForgotPasswordLogin"
+            tools:ignore="HardcodedText" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLoginLeft"

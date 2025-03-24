@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         LoginResponse loginResponse = response.body();
-                        Toast.makeText(getContext(), "Đăng nhập thành công! Token: " + loginResponse.getToken(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
 
                         // Lưu token vào SharedPreferences
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);

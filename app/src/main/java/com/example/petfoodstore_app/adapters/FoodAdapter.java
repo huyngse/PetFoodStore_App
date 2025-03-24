@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.text.NumberFormat;
 
 public class FoodAdapter extends ArrayAdapter<Food> {
     private Context context;
@@ -47,7 +48,8 @@ public class FoodAdapter extends ArrayAdapter<Food> {
 
         nameTextView.setText(food.getName());
         descriptionTextView.setText(food.getDescription());
-        priceTextView.setText(food.getPrice() + " VND");
+        String priceText = formatCurrencyVND(food.getPrice()) + " VND";
+        priceTextView.setText(priceText);
 //        categoryTextView.setText("Category: " + food.getCategory());
 //        petTypeTextView.setText("Pet Type: " + food.getPetType());
 //        foodTypeTextView.setText("Food Type: " + food.getFoodType());
@@ -59,6 +61,13 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         Glide.with(context).load(food.getImage()).into(imageView);
 
         return convertView;
+    }
+
+    public String formatCurrencyVND(double amount) {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        formatter.setMinimumFractionDigits(0);
+        formatter.setMaximumFractionDigits(0);
+        return formatter.format(amount);
     }
 
     private String formatDate(String rawDate) {
