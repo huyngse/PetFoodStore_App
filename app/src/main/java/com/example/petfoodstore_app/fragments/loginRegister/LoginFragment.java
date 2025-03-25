@@ -20,6 +20,7 @@ import com.example.petfoodstore_app.R;
 import com.example.petfoodstore_app.services.ApiService;
 import com.example.petfoodstore_app.activities.FoodListActivity;
 import com.example.petfoodstore_app.activities.LoginRegisterActivity;
+import com.example.petfoodstore_app.utils.TokenManager;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,7 +73,6 @@ public class LoginFragment extends Fragment {
                     if (response.isSuccessful() && response.body() != null) {
                         LoginResponse loginResponse = response.body();
                         Toast.makeText(getContext(), "Đăng nhập thành công!", Toast.LENGTH_LONG).show();
-
                         SharedPreferences sharedPreferences = getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("token", loginResponse.getToken()); // Lấy token từ response

@@ -5,11 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.bumptech.glide.Glide;
 import com.example.petfoodstore_app.R;
+import com.example.petfoodstore_app.activities.FoodListActivity;
 import com.example.petfoodstore_app.models.Food;
 
 import java.text.ParseException;
@@ -20,10 +26,10 @@ import java.util.Locale;
 import java.text.NumberFormat;
 
 public class FoodAdapter extends ArrayAdapter<Food> {
-    private Context context;
+    private FoodListActivity context;
     private List<Food> foodList;
 
-    public FoodAdapter(Context context, List<Food> foodList) {
+    public FoodAdapter(FoodListActivity context, List<Food> foodList) {
         super(context, 0, foodList);
         this.context = context;
         this.foodList = foodList;
@@ -60,7 +66,31 @@ public class FoodAdapter extends ArrayAdapter<Food> {
         // Load image with Glide
         Glide.with(context).load(food.getImage()).into(imageView);
 
+        Button addToCartButton = convertView.findViewById(R.id.btn_item_add_to_cart);
+        addToCartButton.setOnClickListener(v -> showQuantityDialog(food));
         return convertView;
+    }
+
+    private void showQuantityDialog(Food food) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Enter Quantity");
+
+        final EditText input = new EditText(getContext());
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            String quantityStr = input.getText().toString();
+            if (!quantityStr.isEmpty()) {
+                int quantity = Integer.parseInt(quantityStr);
+                context.addCartItem(food, quantity);
+            } else {
+                Toast.makeText(context, "Enter quantity", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
 
     public String formatCurrencyVND(double amount) {
