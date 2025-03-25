@@ -17,12 +17,12 @@ import retrofit2.http.Query;
 
 public interface CartService {
     @PUT("cart/update")
-    Call<String> updateItem(@Header("Authorization") String token,
+    Call<Void> updateItem(@Header("Authorization") String token,
                                     @Query("productId") int productId,
                                     @Query("quantity") int quantity);
 
     @POST("cart/add")
-    Call<String> addItem(@Header("Authorization") String token,
+    Call<Void> addItem(@Header("Authorization") String token,
                        @Query("productId") int productId,
                        @Query("quantity") int quantity);
 

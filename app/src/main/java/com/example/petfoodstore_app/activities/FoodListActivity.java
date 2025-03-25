@@ -132,17 +132,18 @@ public class FoodListActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         CartService cartService = RetrofitClient.getClient().create(CartService.class);
-        Call<String> call = cartService.addItem(token, food.getId(), quantity);
+        Call<Void> call = cartService.addItem("Bearer " + token, food.getId(), quantity);
         call.enqueue(new Callback<>() {
             @Override
-            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(FoodListActivity.this, "Add to cart successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 progressBar.setVisibility(View.GONE);
+                Log.d("DEBUG", t.getMessage());
                 Toast.makeText(FoodListActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

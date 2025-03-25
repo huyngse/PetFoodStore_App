@@ -53,7 +53,7 @@ public class CartItemAdapter extends ArrayAdapter<CartItem> {
         productPrice.setText(strPrice);
 
         updateQuantityButton.setOnClickListener(v -> showUpdateDialog(cartItem));
-        removeItemButton.setOnClickListener(v -> context.removeCartItem(cartItem));
+        removeItemButton.setOnClickListener(v -> context.removeCartItem(cartItem.getCartId(), cartItem.getQuantity()));
 
         return convertView;
     }
@@ -71,8 +71,7 @@ public class CartItemAdapter extends ArrayAdapter<CartItem> {
             String quantityStr = input.getText().toString();
             if (!quantityStr.isEmpty()) {
                 int newQuantity = Integer.parseInt(quantityStr);
-
-                notifyDataSetChanged();
+                context.updateCartItem(cartItem.getCartId(), newQuantity);
             } else {
                 Toast.makeText(context, "Enter quantity", Toast.LENGTH_SHORT).show();
             }
@@ -82,6 +81,7 @@ public class CartItemAdapter extends ArrayAdapter<CartItem> {
 
         builder.show();
     }
+
     public String formatCurrencyVND(double amount) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
         formatter.setMinimumFractionDigits(0);

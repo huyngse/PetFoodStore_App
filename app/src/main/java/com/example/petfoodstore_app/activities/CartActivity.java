@@ -3,6 +3,7 @@ package com.example.petfoodstore_app.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -37,7 +38,7 @@ public class CartActivity extends AppCompatActivity {
     private Button btnCheckout;
     private ListView lvCartList;
     private ProgressBar progressBar;
-    private TextView tvCartTotal;
+    private TextView tvCartTotal, tvEmptyCart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,11 @@ public class CartActivity extends AppCompatActivity {
                     String strTotal = "Total: " + formatCurrencyVND(cart.getTotalAmount());
                     tvCartTotal.setText(strTotal);
                     lvCartList.setAdapter(cartItemAdapter);
+                    if (!cart.getItems().isEmpty()) {
+                        tvEmptyCart.setVisibility(View.GONE);
+                    } else {
+                        tvEmptyCart.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     try {
                         String message = null;
@@ -104,8 +110,64 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-    public void removeCartItem(CartItem cartItem) {
+    public void removeCartItem(int productId, int quantity) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
 
+        if (token.isEmpty()) {
+            Toast.makeText(this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(CartActivity.this, LoginRegisterActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        progressBar.setVisibility(View.VISIBLE);
+
+        CartService cartService = RetrofitClient.getClient().create(CartService.class);
+        Call<Void> call = cartService.removeItem("Bearer " + token, productId, quantity);
+        call.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                progressBar.setVisibility(View.GONE);
+                fetchCart();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updateCartItem(int productId, int quantity) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        String token = sharedPreferences.getString("token", "");
+
+        if (token.isEmpty()) {
+            Toast.makeText(this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(CartActivity.this, LoginRegisterActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        progressBar.setVisibility(View.VISIBLE);
+
+        CartService cartService = RetrofitClient.getClient().create(CartService.class);
+        Call<Void> call = cartService.updateItem("Bearer " + token, productId, quantity);
+        call.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                progressBar.setVisibility(View.GONE);
+                fetchCart();
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(CartActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void bindView() {
@@ -113,6 +175,7 @@ public class CartActivity extends AppCompatActivity {
         lvCartList = findViewById(R.id.lv_cart_list);
         progressBar = findViewById(R.id.progress_bar);
         tvCartTotal = findViewById(R.id.tv_cart_total);
+        tvEmptyCart = findViewById(R.id.empty_cart_message);
     }
 
     public String formatCurrencyVND(double amount) {
