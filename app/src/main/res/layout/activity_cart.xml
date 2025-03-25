@@ -1,17 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Giỏ hàng của bạn"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:padding="16dp" />
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blurry_background" />
 
-    <!-- Thêm các thành phần giao diện giỏ hàng tại đây -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Your Cart"
+            android:textColor="#3F51B5"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="visible" />
+
+        <ListView
+            android:id="@+id/lv_cart_list"
+            android:layout_width="320dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+
+        <TextView
+            android:id="@+id/tv_cart_total"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Total: "
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_cart_checkout"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:text="Check out"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+</RelativeLayout>

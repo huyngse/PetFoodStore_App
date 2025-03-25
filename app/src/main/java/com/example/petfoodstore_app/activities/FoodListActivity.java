@@ -56,7 +56,6 @@ public class FoodListActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
                 return true;
             } else if (itemId == R.id.nav_cart) {
-                Toast.makeText(this, "Cart clicked (not implemented)", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FoodListActivity.this, CartActivity.class);
                 startActivity(intent);
                 return true;
